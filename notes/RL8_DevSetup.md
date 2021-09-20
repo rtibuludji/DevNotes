@@ -1,7 +1,8 @@
 ### Rocky Linux 8 Development Setup
 
-#### 0. Update Packages
 assume user is `root`
+
+#### 0. Update Packages
 
 Update the packages
 ```bash
@@ -70,4 +71,4 @@ cmake --build build-cmake
 test and install
 ```bash
 ./build-cmake/ninja_test
-cp ./build-cmake/ninja /opt/rubuz-tool/bin
+cp ./build-cmake/ninja /opt/rubuz-dev/bin
