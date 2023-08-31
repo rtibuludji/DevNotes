@@ -1,32 +1,30 @@
 ### Rocky Linux 8 Development Setup
 
-assume user is `root`
-
 #### 0. Update Packages
 
 Update the packages
 ```bash
-dnf update -y
+sudo dnf update -y
 ```
 
 ### 1. Install Development Tools
 Install GCC and other development Tools
 ```bash
-dnf group install "Development Tools"
+sudo dnf group install "Development Tools"
 ```
 ### 2. Install Python 3.9
 ```bash
-dnf install python39
+sudo dnf install python39
 ```
 
 ### 3. Create Development Tools directory
 ```bash
-mkdir /opt/rubuz-dev/
+sudo mkdir /opt/rtibuludji-dev/
 ```
 
 export PATH
 ```bash
-export PATH=$PATH:/opt/rubuz-dev/bin
+export PATH=$PATH:/opt/rtibuludji-dev/bin
 ```
 
 ### 4. Install CMAKE Build Tools
@@ -45,9 +43,9 @@ cd cmake-3.20.5
 
 compile and install
 ```bash
-./bootstrap --prefix=/opt/rubuz-dev -- -DCMAKE_USE_OPENSSL=OFF
+./bootstrap --prefix=/opt/rtibuludji-dev -- -DCMAKE_USE_OPENSSL=OFF
 make
-make install
+sudo make install
 ```
 
 ### 5. Install Ninja Build Tools
@@ -71,4 +69,4 @@ cmake --build build-cmake
 test and install
 ```bash
 ./build-cmake/ninja_test
-cp ./build-cmake/ninja /opt/rubuz-dev/bin
+sudo cp ./build-cmake/ninja /opt/rtibuludji-dev/bin
