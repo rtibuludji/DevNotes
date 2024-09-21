@@ -57,8 +57,24 @@ sudo cp ./build-cmake/ninja $HOMEDEV/bin
 
 ### 3. Install CppCheck (Optional)
 
-Download the source code
-
+Clone CppCheck
+```bash
+git clone https://github.com/danmar/cppcheck.git
+```
+Build and Install CPPCHEK
+```bash
+cd cppcheck
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=$HOMEDEV
+cmake --build .
+cmake --install .
+```
+Copy CFG to share
+```bash
+mkdir $HOMEDEV/share/Cppcheck
+cp -R $HOMEDEV/OFF/cfg $HOMEDEV/share/Cppcheck/cfg
+```
 
 ### 4. Install CLANG 
 
@@ -66,7 +82,6 @@ Clone the LLVM-Project
 ```bash
 git clone https://github.com/llvm/llvm-project.git
 ```
-
 Build and Install CLANG and CLANG-TOOLS EXTRA
 ```bash
 cmake -S llvm -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" -DCMAKE_INSTALL_PREFIX=$HOMEDEV
