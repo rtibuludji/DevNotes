@@ -1,10 +1,14 @@
 
-### 0. Install GCC 
+### 0. Prerequisted 
+- Should already install GCC and GNU Development Tools
+
+
+
 
 ### 1. Create Development Tools directory
 ```bash
-sudo mkdir ~/.dev
-export HOMEDEV=~/.dev
+sudo mkdir -p ~/.local
+export HOMEDEV=~/.local
 ```
 
 export PATH
@@ -12,8 +16,20 @@ export PATH
 export PATH=$PATH:$HOMEDEV/bin
 ```
 
-### 2. Install CMAKE Build Tools
+### 2. Install OpenSSL Dev
+- OpenSSL dev
+Download the source code
+```bash
+cd /tmp 
+curl -L -O https://github.com/openssl/openssl/archive/refs/tags/openssl-3.3.2.tar.gz
+```
+extract the source code
+```bash
+tar xzvf openssl-3.3.2.tar.gz
+cd openssl-3.3.2
+```
 
+### 3. Install CMAKE Build Tools
 Download the source code
 ```bash
 cd /tmp
@@ -28,9 +44,9 @@ cd cmake-3.30.3
 
 compile and install
 ```bash
-./bootstrap --prefix=$HOMEDEV -- -DCMAKE_USE_OPENSSL=OFF
+./bootstrap --prefix=${HOMEDEV}
 make
-sudo make install
+make install
 ```
 
 ### 3. Install Ninja
@@ -52,11 +68,18 @@ cmake --build build-cmake
 test and install
 ```bash
 ./build-cmake/ninja_test
-sudo cp ./build-cmake/ninja $HOMEDEV/bin
+sudo cp ./build-cmake/ninja ${HOMEDEV}/bin
 ```
 
-### 3. Install CppCheck (Optional)
+### 3. Install vcpkg
+```bash
+cd ${HOMEDEV}
+git clone https://github.com/microsoft/vcpkg.git
+cd vcpkg
+./bootstrap-vcpkg.sh --disableMetrics
+```
 
+### 4. Install CppCheck (Optional)
 Clone CppCheck
 ```bash
 git clone https://github.com/danmar/cppcheck.git
@@ -76,15 +99,14 @@ mkdir $HOMEDEV/share/Cppcheck
 cp -R $HOMEDEV/OFF/cfg $HOMEDEV/share/Cppcheck/cfg
 ```
 
-### 4. Install CLANG 
-
+### 5. Install LLVM + CLANG (Optional)
 Clone the LLVM-Project
 ```bash
 git clone https://github.com/llvm/llvm-project.git
 ```
 Build and Install CLANG and CLANG-TOOLS EXTRA
 ```bash
-cmake -S llvm -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" -DCMAKE_INSTALL_PREFIX=$HOMEDEV
+cmake -S llvm -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" -DCMAKE_INSTALL_PREFIX=$HOMEDEV/clang
 cmake --build build
 cmake --install build
 ```
