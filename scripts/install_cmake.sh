@@ -5,7 +5,7 @@
 #
 set -e
 
-CMAKE_VERSION="3.30.3"
+CMAKE_VERSION="4.0.3"
 
 # setup the directory for target
 mkdir -p ~/.local
